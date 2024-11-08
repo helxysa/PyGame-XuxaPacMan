@@ -268,8 +268,36 @@ class GameController(object):
 
         pygame.display.update()
 
+def mainMenu(screen):
+    # Load background image
+    background = pygame.image.load('dog-grande-1.png')
+    background = pygame.transform.scale(background, SCREENSIZE)
+
+    font = pygame.font.Font(None, 14)
+    text = font.render('XUXUETE RUN', True, BLACK)
+    text2 = font.render('PRESS ENTER TO START, SPACE TO START', True, BLACK)
+
+    text_rect = text.get_rect(center=(SCREENWIDTH/2, SCREENHEIGHT/2))
+    text2_rect = text2.get_rect(center=(SCREENWIDTH/2, SCREENHEIGHT/2 + 20))
+    
+    while True:
+        screen.blit(background, (1, 2))
+        screen.blit(text, text_rect)
+        screen.blit(text2, text2_rect)
+        pygame.display.flip()
+        
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                exit()
+            elif event.type == KEYDOWN:
+                if event.key == K_RETURN:
+                    return
 
 if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode(SCREENSIZE, 0, 32)
+    mainMenu(screen)
     game = GameController()
     game.startGame()
     while True:
